@@ -32,24 +32,44 @@ Type* Parser::getType(std::string& str)
 	testInt >> integer;
 
 	if (integer == 0) // 0 is what returns if the value isn't an integer
-		if (str == "0") // but it can also be the real value, so i'm checking
-			return new Integer(0);
+		if (str == "0")  // but it can also be the real value, so i'm checking
+		{
+			Type* type = new Integer(0);
+			type->setIsTemp(true);
+			return type;
+		}
 		else 
 		{ 
 			// It's not an int - continue to check
 		}
-	else
-		return new Integer(integer);
+	else 
+	{
+		Type* type = new Integer(0);
+		type->setIsTemp(true);
+		return type;
+	}
 	
-	if (str == "True")
-		return new Boolean(true);
-	else if (str == "False")
-		return new Boolean(false);
+	if (str == "True") 
+	{
+		Type* type = new Boolean(true);
+		type->setIsTemp(true);
+		return type;
+	}
+	else if (str == "False") 
+	{
+		Type* type = new Boolean(false);
+		type->setIsTemp(true);
+		return type;
+	}
 
-	if (str[0] == '"' && str[str.length() - 1] == '"' || str[0] == 39 && str[str.length() - 1] == 39) { // 39 - '
+	if (str[0] == '"' && str[str.length() - 1] == '"' || str[0] == 39 && str[str.length() - 1] == 39) // 39 - '
+	{
 		str.erase(0, 1); // remove the first " | '
 		str.erase(str.length() - 1); // remove the last " | '
-		return new String(str);
+
+		Type* type = new String(str);
+		type->setIsTemp(true);
+		return type;
 	}
 
 	return nullptr;
