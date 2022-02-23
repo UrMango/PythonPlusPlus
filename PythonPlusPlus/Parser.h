@@ -15,5 +15,7 @@ public:
 	static Type* getType(std::string& str);
 private:
 	static bool startsWith(const std::string& text, const std::string& param);
-
+	static bool isLegalVarName(std::string str);
+	static bool makeAssignment(std::string str);
+	static Type* getVariableValue(std::string str);
 };

@@ -79,4 +79,19 @@ bool Parser::startsWith(const std::string& text, const std::string& param)
 	return text.compare(0, param.length(), param) == 0; 
 }
 
+bool Parser::isLegalVarName(std::string str)
+{
+	return false;
+}
+
+bool Parser::makeAssignment(std::string str)
+{
+	return false;
+}
+
+Type* Parser::getVariableValue(std::string str)
+{
+	return nullptr;
+}
+
 
