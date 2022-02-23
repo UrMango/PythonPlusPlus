@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 
-std::unordered_map<std::string, Type*> _variables;
+std::unordered_map<std::string, Type*> Parser::_variables;
 
 Type* Parser::parseString(std::string str)
 {
@@ -19,7 +19,8 @@ Type* Parser::parseString(std::string str)
 		if (Parser::startsWith(str, " ") || Parser::startsWith(str, "	"))
 			throw new IndentationException();
 
-		str.erase(str.find_last_not_of(" ") + 1); // remove spaces from end
+ 		//str.erase(str.find_last_not_of(" ") + 1); // remove spaces from end
+		Helper::rtrim(str);
 
 		Type* type = Parser::getVariableValue(str);
 		if (type)
@@ -35,7 +36,7 @@ Type* Parser::parseString(std::string str)
 	return nullptr;
 }
 
-Type* Parser::getType(std::string& str)
+Type* Parser::getType(std::string str)
 {
 	int integer = 0;
 	std::stringstream testInt(str);
@@ -127,15 +128,18 @@ bool Parser::makeAssignment(std::string str)
 
 	varContent->setIsTemp(false);
 
-	_variables.insert({ varName, varContent });
+	// Is variable exist already
+	if(Parser::parseString(varName));
+
+	Parser::_variables.insert({ varName, varContent });
 
 	return true;
 }
 
 Type* Parser::getVariableValue(std::string str)
 {
-	std::unordered_map<std::string, Type*>::const_iterator found = _variables.find(str);
-	if (found == _variables.end())
+	std::unordered_map<std::string, Type*>::const_iterator found = Parser::_variables.find(str);
+	if (found == Parser::_variables.end())
 		return nullptr;
 	else
 		return found->second;
@@ -143,7 +147,7 @@ Type* Parser::getVariableValue(std::string str)
 
 void Parser::deleteVariables()
 {
-	for (auto it = _variables.begin(); it != _variables.end(); it++) {
+	for (auto it = Parser::_variables.begin(); it != Parser::_variables.end(); it++) {
 		delete it->second;
 	}
 }

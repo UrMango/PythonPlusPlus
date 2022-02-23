@@ -11,13 +11,14 @@ class Parser
 {
 public:
 	static Type* parseString(std::string str);
-	static Type* getType(std::string& str);
+	static Type* getType(std::string str);
+	static void deleteVariables();
 private:
-	// Could'nt make a static unorderd map
+	static std::unordered_map<std::string, Type*> _variables;
 	static bool startsWith(const std::string& text, const std::string& param);
 
 	static bool isLegalVarName(std::string str);
 	static bool makeAssignment(std::string str);
 	static Type* getVariableValue(std::string str);
-	static void deleteVariables();
+	static std::unordered_map<std::string, Type*>::const_iterator getVariable(std::string key);
 };
