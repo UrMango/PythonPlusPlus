@@ -130,7 +130,11 @@ bool Parser::makeAssignment(std::string str)
 
 Type* Parser::getVariableValue(std::string str)
 {
-	return nullptr;
+	std::unordered_map<std::string, Type*>::const_iterator found = Parser::_variables.find(str);
+	if (found == Parser::_variables.end())
+		return nullptr;
+	else
+		return found->second;
 }
 
 
