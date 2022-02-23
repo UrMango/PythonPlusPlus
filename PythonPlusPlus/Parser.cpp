@@ -81,7 +81,14 @@ bool Parser::startsWith(const std::string& text, const std::string& param)
 
 bool Parser::isLegalVarName(std::string str)
 {
-	return false;
+	if (Helper::isDigit(str[0]))
+		return false;
+	for (int i = 0; i < str.length(); i++)
+	{
+		if(!Helper::isDigit(str[i]) && !Helper::isUnderscore(str[i]) && !Helper::isLetter(str[i]))
+			return false;
+	}
+	return true;
 }
 
 bool Parser::makeAssignment(std::string str)
