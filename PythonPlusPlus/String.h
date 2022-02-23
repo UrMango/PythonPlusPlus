@@ -9,6 +9,7 @@ public:
 	String(std::string value, bool isTemp);
 	~String();
 
+	void* getValue() const override;
 	bool isPrintable() const override;
 	std::string toString() const override;
 };

@@ -20,5 +20,6 @@ private:
 	static bool isLegalVarName(std::string str);
 	static bool makeAssignment(std::string str);
 	static Type* getVariableValue(std::string str);
+	static Type* copyVar(Type* var);
 	static std::unordered_map<std::string, Type*>::iterator getVariable(std::string key);
 };

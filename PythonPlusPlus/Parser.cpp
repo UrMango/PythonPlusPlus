@@ -123,13 +123,23 @@ bool Parser::makeAssignment(std::string str)
 	if (!Parser::isLegalVarName(varName))
 		throw new SyntaxException();
 
-	Type* varContent = Parser::getType(varContentStr);
 
-	if(!varContent)
-		throw new SyntaxException();
+	Type* varContent = Parser::getType(varContentStr);
+	std::unordered_map<std::string, Type*>::iterator contentVar;
+
+	if (!varContent) 
+	{
+		if (Parser::isLegalVarName(varContentStr)) // if legal
+			contentVar = Parser::getVariable(varContentStr);
+		else
+			throw new SyntaxException();
+	}
 
 	varContent->setIsTemp(false);
 
+	if (contentVar != Parser::_variables.end()) //if content is a var
+		varContent = Parser::copyVar(contentVar->second);
+	
 	// Is variable exist already
 	std::unordered_map<std::string, Type*>::iterator var = Parser::getVariable(varName);
 	if (var != Parser::_variables.end()) // false = there's no variable
@@ -141,6 +151,23 @@ bool Parser::makeAssignment(std::string str)
 	Parser::_variables.insert({ varName, varContent });
 
 	return true;
+}
+
+Type* Parser::copyVar(Type* var)
+{
+	switch (var->_type)
+	{
+	case Types::_Void:
+		return new Void(var->getIsTemp());
+	case Types::_Bool:
+		return new Boolean(*((bool*)var->getValue()), var->getIsTemp());
+	case Types::_Int:
+		return new Integer(*((int*)var->getValue()), var->getIsTemp());
+	case Types::_String:
+		return new String(*((std::string*)var->getValue()), var->getIsTemp());
+	default:
+		break;
+	}
 }
 
 Type* Parser::getVariableValue(std::string str)
@@ -160,9 +187,8 @@ std::unordered_map<std::string, Type*>::iterator Parser::getVariable(std::string
 
 void Parser::deleteVariables()
 {
-	for (auto it = Parser::_variables.begin(); it != Parser::_variables.end(); it++) {
+	for (auto it = Parser::_variables.begin(); it != Parser::_variables.end(); it++) 
 		delete it->second;
-	}
 }
 
 

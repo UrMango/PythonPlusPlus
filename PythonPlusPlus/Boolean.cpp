@@ -1,12 +1,17 @@
 #include "Boolean.h"
 
-Boolean::Boolean(bool value, bool isTemp = false) : _value(value)
+Boolean::Boolean(bool value, bool isTemp = false) : _value(value), Type(Types::_Bool)
 {
 	this->setIsTemp(isTemp);
 }
 
 Boolean::~Boolean()
 {
+}
+
+void* Boolean::getValue() const
+{
+	return (void*)&_value;
 }
 
 bool Boolean::isPrintable() const
