@@ -2,6 +2,7 @@
 #include "InterpreterException.h"
 #include "Parser.h"
 #include <iostream>
+#include <sstream>
 
 #define WELCOME "Welcome to the Python Interperter (Python++) version 1.0 by "
 #define NAME "Noam Raz"

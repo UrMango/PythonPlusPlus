@@ -1,7 +1,7 @@
 #pragma once
 #include "Type.h"
 
-class Sequence : Type
+class Sequence : public Type
 {
 public:
 	virtual bool isPrintable() const = 0;
