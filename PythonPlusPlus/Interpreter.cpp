@@ -22,7 +22,9 @@ int main(int argc, char** argv)
 	{
 		try {
 			// parsing command
-			Parser::parseString(input_string);
+			Type* type = Parser::parseString(input_string);
+			if (type->isPrintable())
+				std::cout << type->toString() << std::endl;
 		}
 		catch (InterpreterException* e) {
 			std::cout << e->what() << std::endl;

@@ -15,5 +15,7 @@ bool String::isPrintable() const
 
 std::string String::toString() const
 {
-	return this->_value;
+	if (this->_value.find("'") != std::string::npos)
+		return '"' + this->_value + '"';
+	return "'" + this->_value + "'";
 }

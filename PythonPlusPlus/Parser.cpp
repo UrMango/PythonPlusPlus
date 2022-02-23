@@ -1,5 +1,6 @@
 #include "Parser.h"
 #include "IndentationException.h"
+#include "SyntaxException.h"
 #include "Integer.h"
 #include "Boolean.h"
 #include "String.h"
@@ -14,7 +15,14 @@ Type* Parser::parseString(std::string str)
 		// checks if the string starts with space or tab
 		if (Parser::startsWith(str, " ") || Parser::startsWith(str, "	"))
 			throw new IndentationException();
-		std::cout << str << std::endl;
+
+		str.erase(str.find_last_not_of(" ") + 1); // remove spaces from end
+
+		Type* type = Parser::getType(str);
+		if (type) // if not null
+			return type;
+		else
+			throw new SyntaxException();
 	}
 
 	return nullptr;
@@ -44,7 +52,7 @@ Type* Parser::getType(std::string& str)
 		}
 	else 
 	{
-		Type* type = new Integer(0);
+		Type* type = new Integer(integer);
 		type->setIsTemp(true);
 		return type;
 	}
