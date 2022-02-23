@@ -6,7 +6,10 @@ NameErrorException::NameErrorException(std::string name) : _name(name)
 
 const char* NameErrorException::what() const noexcept
 {
-    std::string x = "NameError : name '" + this->_name + "' is not defined";
-    const char* y = x.c_str();
-    return y;
+    std::string y = "NameError : name '";
+    y += this->_name;
+    y += "' is not defined";
+    char* x = new char[y.length() + 1];
+    std::strcpy(x, y.c_str());
+    return x;
 }

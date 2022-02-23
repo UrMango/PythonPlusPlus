@@ -1,5 +1,7 @@
 #pragma once
+#include <iostream>
 #include <string>
+#include <format>
 #include "InterpreterException.h"
 
 class NameErrorException : public InterpreterException
