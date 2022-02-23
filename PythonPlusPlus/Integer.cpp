@@ -1,7 +1,8 @@
 #include "Integer.h"
 
-Integer::Integer(int value) : _value(value)
+Integer::Integer(int value, bool isTemp = false) : _value(value)
 {
+	this->setIsTemp(isTemp);
 }
 
 Integer::~Integer()

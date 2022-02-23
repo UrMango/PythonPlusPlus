@@ -8,7 +8,7 @@ class Integer : public Type
 private:
 	int _value = 0;
 public:
-	Integer(int value);
+	Integer(int value, bool isTemp);
 	~Integer();
 
 	bool isPrintable() const override;

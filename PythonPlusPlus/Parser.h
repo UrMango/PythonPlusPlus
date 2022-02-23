@@ -15,4 +15,5 @@ public:
 	static Type* getType(std::string& str);
 private:
 	static bool startsWith(const std::string& text, const std::string& param);
+
 };

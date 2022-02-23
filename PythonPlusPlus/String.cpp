@@ -1,7 +1,8 @@
 #include "String.h"
 
-String::String(std::string value) : _value(value)
+String::String(std::string value, bool isTemp = false) : _value(value)
 {
+	this->setIsTemp(isTemp);
 }
 
 String::~String()

@@ -25,6 +25,8 @@ int main(int argc, char** argv)
 			Type* type = Parser::parseString(input_string);
 			if (type->isPrintable())
 				std::cout << type->toString() << std::endl;
+			if (type->getIsTemp())
+				delete type;
 		}
 		catch (InterpreterException* e) {
 			std::cout << e->what() << std::endl;

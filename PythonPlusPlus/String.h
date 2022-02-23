@@ -6,7 +6,7 @@ class String : public Sequence
 private:
 	std::string _value = "";
 public:
-	String(std::string value);
+	String(std::string value, bool isTemp);
 	~String();
 
 	bool isPrintable() const override;

@@ -1,7 +1,8 @@
 #include "Void.h"
 
-Void::Void()
+Void::Void(bool isTemp = false)
 {
+    this->setIsTemp(isTemp);
 }
 
 Void::~Void()

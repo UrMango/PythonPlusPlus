@@ -42,9 +42,7 @@ Type* Parser::getType(std::string& str)
 	if (integer == 0) // 0 is what returns if the value isn't an integer
 		if (str == "0")  // but it can also be the real value, so i'm checking
 		{
-			Type* type = new Integer(0);
-			type->setIsTemp(true);
-			return type;
+			return new Integer(0, true);;
 		}
 		else 
 		{ 
@@ -52,22 +50,16 @@ Type* Parser::getType(std::string& str)
 		}
 	else 
 	{
-		Type* type = new Integer(integer);
-		type->setIsTemp(true);
-		return type;
+		return new Integer(integer, true);
 	}
 	
 	if (str == "True") 
 	{
-		Type* type = new Boolean(true);
-		type->setIsTemp(true);
-		return type;
+		return new Boolean(true, true);
 	}
 	else if (str == "False") 
 	{
-		Type* type = new Boolean(false);
-		type->setIsTemp(true);
-		return type;
+		return new Boolean(false, true);
 	}
 
 	if (str[0] == '"' && str[str.length() - 1] == '"' || str[0] == 39 && str[str.length() - 1] == 39) // 39 - '
@@ -75,9 +67,7 @@ Type* Parser::getType(std::string& str)
 		str.erase(0, 1); // remove the first " | '
 		str.erase(str.length() - 1); // remove the last " | '
 
-		Type* type = new String(str);
-		type->setIsTemp(true);
-		return type;
+		return new String(str, true);
 	}
 
 	return nullptr;

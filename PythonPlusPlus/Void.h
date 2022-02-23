@@ -4,7 +4,7 @@
 class Void : public Type
 {
 public:
-	Void();
+	Void(bool isTemp);
 	~Void();
 
 	bool isPrintable() const override;

@@ -1,7 +1,8 @@
 #include "Boolean.h"
 
-Boolean::Boolean(bool value) : _value(value)
+Boolean::Boolean(bool value, bool isTemp = false) : _value(value)
 {
+	this->setIsTemp(isTemp);
 }
 
 Boolean::~Boolean()
