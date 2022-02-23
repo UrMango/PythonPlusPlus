@@ -1,5 +1,7 @@
 #pragma once
-class Integer
+#include "Type.h"
+
+class Integer : public Type
 {
 };
 

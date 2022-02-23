@@ -1,5 +1,8 @@
 #pragma once
-class Void
+#include "Type.h"
+
+class Void : public Type
 {
+
 };
 

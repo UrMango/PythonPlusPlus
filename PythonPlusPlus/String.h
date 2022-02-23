@@ -1,5 +1,7 @@
 #pragma once
-class String
+#include "Sequence.h"
+
+class String : public Sequence
 {
 };
 

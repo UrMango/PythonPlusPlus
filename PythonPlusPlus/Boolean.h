@@ -1,5 +1,7 @@
 #pragma once
-class Boolean
+#include "Type.h"
+
+class Boolean : public Type
 {
 };
 
