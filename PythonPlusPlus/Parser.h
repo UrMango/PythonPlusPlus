@@ -11,7 +11,7 @@ class Parser
 {
 public:
 	static Type* parseString(std::string str);
-	static Type* getType(std::string str);
+	static Type* getType(std::string& str1);
 	static void deleteVariables();
 private:
 	static std::unordered_map<std::string, Type*> _variables;
@@ -20,5 +20,5 @@ private:
 	static bool isLegalVarName(std::string str);
 	static bool makeAssignment(std::string str);
 	static Type* getVariableValue(std::string str);
-	static std::unordered_map<std::string, Type*>::const_iterator getVariable(std::string key);
+	static std::unordered_map<std::string, Type*>::iterator getVariable(std::string key);
 };

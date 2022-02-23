@@ -36,13 +36,15 @@ Type* Parser::parseString(std::string str)
 	return nullptr;
 }
 
-Type* Parser::getType(std::string str)
+Type* Parser::getType(std::string& str1)
 {
+	std::string str = str1;
+
 	int integer = 0;
 	std::stringstream testInt(str);
 
 	// remove spaces
-	std::remove(str.begin(), str.end(), ' ');
+	Helper::trim(str);
 
 	// Check if the string is an integer
 	testInt >> integer;
@@ -129,7 +131,12 @@ bool Parser::makeAssignment(std::string str)
 	varContent->setIsTemp(false);
 
 	// Is variable exist already
-	if(Parser::parseString(varName));
+	std::unordered_map<std::string, Type*>::iterator var = Parser::getVariable(varName);
+	if (var != Parser::_variables.end()) // false = there's no variable
+	{
+		var->second = varContent; // change the content
+		return true;
+	}
 
 	Parser::_variables.insert({ varName, varContent });
 
@@ -143,6 +150,12 @@ Type* Parser::getVariableValue(std::string str)
 		return nullptr;
 	else
 		return found->second;
+}
+
+std::unordered_map<std::string, Type*>::iterator Parser::getVariable(std::string key)
+{
+	std::unordered_map<std::string, Type*>::iterator found = Parser::_variables.find(key);
+	return found;
 }
 
 void Parser::deleteVariables()
