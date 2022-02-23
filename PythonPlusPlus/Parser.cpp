@@ -10,7 +10,7 @@ Type* Parser::parseString(std::string str)
 	{
 		// checks if the string starts with space or tab
 		if (Parser::startsWith(str, " ") || Parser::startsWith(str, "	"))
-			throw IndentationException();
+			throw new IndentationException();
 		std::cout << str << std::endl;
 	}
 
