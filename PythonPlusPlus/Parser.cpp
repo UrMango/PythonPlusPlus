@@ -1,9 +1,11 @@
 #include "Parser.h"
 #include "IndentationException.h"
 #include "SyntaxException.h"
+#include "NameErrorException.h"
 #include "Integer.h"
 #include "Boolean.h"
 #include "String.h"
+#include "Void.h"
 #include <iostream>
 #include <string>
 
@@ -21,8 +23,9 @@ Type* Parser::parseString(std::string str)
 		Type* type = Parser::getType(str);
 		if (type) // if not null
 			return type;
-		else
-			throw new SyntaxException();
+		if (!Parser::makeAssignment(str))
+			return new Void(true);
+		throw new SyntaxException();
 	}
 
 	return nullptr;
@@ -93,7 +96,36 @@ bool Parser::isLegalVarName(std::string str)
 
 bool Parser::makeAssignment(std::string str)
 {
-	return false;
+	if (str[0] == '=' || str[str.length() - 1] == '=')
+		return false;
+	int equalIndx = str.find("=");
+	if (equalIndx != std::string::npos)
+	{
+		if (str[equalIndx - 1] != ' ' || str[equalIndx + 1] != ' ')
+			return false;
+	}
+	else
+		return false;
+
+	std::string varName = str.substr(0, equalIndx);
+	Helper::trim(varName);
+
+	std::string varContentStr = str.substr(equalIndx + 1, str.length() - equalIndx);
+	Helper::trim(varContentStr);
+
+	if (!Parser::isLegalVarName(varName))
+		throw new SyntaxException();
+
+	Type* varContent = Parser::getType(varContentStr);
+
+	if(!varContent)
+		throw new SyntaxException();
+
+	varContent->setIsTemp(false);
+
+	Parser::_variables.insert(std::pair<std::string, Type*>(varName, varContent));
+
+	return true;
 }
 
 Type* Parser::getVariableValue(std::string str)
