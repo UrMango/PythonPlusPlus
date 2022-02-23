@@ -133,12 +133,12 @@ bool Parser::makeAssignment(std::string str)
 			contentVar = Parser::getVariable(varContentStr);
 		else
 			throw new SyntaxException();
+
+		if (contentVar != Parser::_variables.end()) //if content is a var
+			varContent = Parser::copyVar(contentVar->second);
 	}
 
-	varContent->setIsTemp(false);
-
-	if (contentVar != Parser::_variables.end()) //if content is a var
-		varContent = Parser::copyVar(contentVar->second);
+	varContent->setIsTemp(false);	
 	
 	// Is variable exist already
 	std::unordered_map<std::string, Type*>::iterator var = Parser::getVariable(varName);
