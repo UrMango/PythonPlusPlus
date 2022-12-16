@@ -7,11 +7,7 @@ Python++ is a Python interpreter written in C++.
 
 ## Getting Started
 
-To use Python++, you will need a C++ compiler and the following dependencies:
-
-- `Type.h`
-- `InterpreterException.h`
-- `Parser.h`
+To use Python++, you will need a C++ compiler (G++ / Visual Studio) and the files in the repo.
 
 You can then compile the Python++ interpreter by running the following command:
 ```bash
